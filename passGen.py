@@ -7,13 +7,13 @@ lettersToSymbols = {
     'S': '$',
     'O': '0',
     'G': '8',
-    'I': 'i',
+    'I': '!',
     'E': '3',
     'A': '@'
 }
 
 # Loop to randomly choose 2 strings from referenced .txt file, and 2 integers both to be added to masterList.
-def wordGen():
+def passGen():
     global masterList
     masterList = [] 
     while len(masterList) < 4:
@@ -35,8 +35,8 @@ def wordGen():
             masterList += [wordSelectFinal]
             masterList += [intStr]
 
-# Calls wordGen function
-wordGen()
+# Calls passGen function
+passGen()
 
 # Shuffles list and returns joined string.
 random.shuffle(masterList)
