@@ -12,17 +12,20 @@ lettersToSymbols = {
     'A': '@'
 }
 
-# Loop to randomly choose 2 strings to be formatted and added to masterList.
+# Loop to randomly choose 2 strings from referenced .txt file, and 2 integers both to be added to masterList.
 def wordGen():
     global masterList
     masterList = [] 
-    while len(masterList) < 2:
-        # randomly selects string and remove punctuation. Than make sure string is greater than 4 characters to be formatted.
+    while len(masterList) < 4:
+        # randomly selects string and removes punctuation. Than makes sure string is greater than 4 characters to be formatted.
         wordSelect = random.choice(open("sampleText.txt").read().split())
         wordSelectPunc = wordSelect.translate(str.maketrans('','', string.punctuation))
         if len(wordSelectPunc) <= 4:
             print("String too short.")
         elif len(wordSelectPunc) > 4:
+            # creates random integer and converts to string.
+            intGen = random.randint(99, 9999)
+            intStr = str(intGen)
             # formats wordSelectPunc to randomize casing, and replace letters with symbols.
             wordSelectPunc = (''.join(choice((str.upper, str.lower))(c) for c in wordSelectPunc))
             wordSelectFinal = wordSelectPunc
@@ -30,19 +33,10 @@ def wordGen():
                 wordSelectFinal = wordSelectFinal.replace(letter, symbol)
                 wordSelectFinal = wordSelectFinal.replace(letter.lower(), symbol)
             masterList += [wordSelectFinal]
-        
-# Creates random integer variable and converts to string.
-def numbGen():
-    global intStr
-    intGen = random.randint(10000, 100000)
-    intStr = str(intGen)
+            masterList += [intStr]
 
-# Calls wordGen and numbGen functions.
+# Calls wordGen function
 wordGen()
-numbGen()
-
-# Adds numbGen returned variable to masterList
-masterList += [intStr]
 
 # Shuffles list and returns joined string.
 random.shuffle(masterList)
