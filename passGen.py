@@ -1,26 +1,6 @@
 import random
-
-# Randomizes word selection from attached .txt file and applies it to a global variable. Loops until selected string is greater than 4 characters.
-def wordGen():   
-    while True:
-        global wordSelect
-        wordSelect = random.choice(open("sampleText.txt").read().split())
-        if len(wordSelect) <= 4:
-            print(wordSelect + " is too short, trying again")
-        elif len(wordSelect) > 4:
-            break
-
-# Randomizes capitalization for selected string.
-def capsGen():
-    from random import choice
-    global capChaStr
-    capChaStr = (''.join(choice((str.upper, str.lower))(c) for c in wordSelect))
-
-# Creates random integer variable and converts to string.
-def numbGen():
-    intGen = random.randint(10000, 100000)
-    global intStr
-    intStr = str(intGen)
+import string
+from random import choice
 
 # Dictionary to reference and change letters in a string.
 lettersToSymbols = {
@@ -32,32 +12,44 @@ lettersToSymbols = {
     'A': '@'
 }
 
-# Calls lengthCheck for a word, and replaces certain letters with symbols.
-wordGen()
-capsGen()
-finWord1 = capChaStr
-for letter, symbol in lettersToSymbols.items():
-    finWord1 = finWord1.replace(letter, symbol)
-    finWord1 = finWord1.replace(letter.lower(), symbol)
+# Loop to randomly choose 2 strings to be formatted and added to masterList.
+def wordGen():
+    global masterList
+    masterList = [] 
+    while len(masterList) < 2:
+        # randomly selects string and remove punctuation. Than make sure string is greater than 4 characters to be formatted.
+        wordSelect = random.choice(open("sampleText.txt").read().split())
+        wordSelectPunc = wordSelect.translate(str.maketrans('','', string.punctuation))
+        if len(wordSelectPunc) <= 4:
+            print("String too short.")
+        elif len(wordSelectPunc) > 4:
+            # formats wordSelectPunc to randomize casing, and replace letters with symbols.
+            wordSelectPunc = (''.join(choice((str.upper, str.lower))(c) for c in wordSelectPunc))
+            wordSelectFinal = wordSelectPunc
+            for letter, symbol in lettersToSymbols.items():
+                wordSelectFinal = wordSelectFinal.replace(letter, symbol)
+                wordSelectFinal = wordSelectFinal.replace(letter.lower(), symbol)
+            masterList += [wordSelectFinal]
+        
+# Creates random integer variable and converts to string.
+def numbGen():
+    global intStr
+    intGen = random.randint(10000, 100000)
+    intStr = str(intGen)
 
-# Calls lengthCheck for a second word, and replaces certain letters with symbols.
+# Calls wordGen and numbGen functions.
 wordGen()
-capsGen()
-finWord2 = capChaStr
-for letter, symbol in lettersToSymbols.items():
-    finWord2 = finWord2.replace(letter, symbol)
-    finWord2 = finWord2.replace(letter.lower(), symbol)
-
-# Calls numbGen function to create a random integer.
 numbGen()
 
-# Creates list containing final variables, shuffles order and converts to joined string.
-passList = list([finWord1, finWord2, intStr])
-random.shuffle(passList)
-strList = ''.join(passList)
+# Adds numbGen returned variable to masterList
+masterList += [intStr]
 
-# Prints out final password.
-print(strList)
+# Shuffles list and returns joined string.
+random.shuffle(masterList)
+password = ''.join(masterList)
+
+# Prints final result to user.
+print(password)
 
 
 
