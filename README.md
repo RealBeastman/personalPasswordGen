@@ -1,17 +1,50 @@
-# personalPasswordGen
-Simple password generator for personal security.
+# Personal Password Generator
 
-A simple python script to generate and save passwords in a .txt file.
+> A simple CLI tool for generating secure passwords using Python.
 
-Passwords are generated using a users selected text samples for random selection.
-Text is formatted, letters are replaced with symbols, and shuffled along with a random number for
-high levels of complexity and randomization.
+---
 
-This script automatically creates required .txt files when ran for the first time.
-Includes a very basic sample text to be changed at users will, and a password document
-that saves the account type along with the username to have all information in one place.
+## Overview
 
-Personal security of the passwords text file is dependent on the user. 
-**********  DO NOT LOSE THIS FILE!  **********
+This is one of my first Python projects, before I even started college. This script is designed to generate random passwords using sample text. It saves generated passwords to a local file and provides basic way to archive account/password pairs.
 
-Updates are dependent on my progression in Python, as well as practicality.
+---
+
+## Usage
+
+`python passGen.py`
+
+You will be prompted to:
+- Specify whether you want to create a new password
+- Input an account name and username/email
+- Automatically generate a secure password using randomized text and numbers
+
+The password will be saved to `passwords.txt` along with the provided account information
+
+---
+
+## Features
+- Randomized password creation using sample text + substitutions
+- Mixed-case and symbol substitution for complexity
+- Appends each credential set to a plaintext file (`passwords.txt`) **Not Secure**
+- Automatically craetes and checks required files: `passwords.txt` and `sampleText.txt`
+
+---
+
+## Extra
+
+- If `sampleText.txt` does not exist, it is created and filled with default text.
+  - You can replace this with any text of your choosing. (e.g. first chapter of *Moby Dick*)
+- If `passwords.txt` not not exist, it is created automatically
+- Passwords are written with account and username headers for readability
+
+---
+
+## Status
+**Archived:** This is an early utility project and is no longer actively maintained.
+
+---
+
+## License
+
+MIT License
